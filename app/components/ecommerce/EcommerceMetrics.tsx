@@ -11,11 +11,11 @@ export const EcommerceMetrics = () => {
       const users = await getUsers();
       const allDevice = await getAllDeviceDetails()
       console.log("user, allDevice", users, allDevice)
-      setUser(users?.length|0)
-      setDevice(allDevice?.length|0)
+      setUser(users?.length)
+      setDevice(allDevice?.length)
     }
     getDataFromSever()
-  }, [])
+  })
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-4 lg:grid-cols-3 md:gap-6">
       {/* <!-- Metric Item Start --> */}

@@ -33,8 +33,8 @@ const navItems: NavItem[] = [
     icon: <UserCircleIcon />,
     name: "Admin Pages",
     subItems: [
-      { name: "Add Device", path: "/add-device", pro: false },
-      { name: "Assign Device", path: "/assign-device", pro: false }
+      // { name: "Add Device", path: "/add-device", pro: false },
+      // { name: "Assign Device", path: "/assign-device", pro: false }
     ],
   },
 
@@ -275,7 +275,7 @@ const AppSidebar: React.FC = () => {
         className={`py-8 flex  ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
           }`}
       >
-        <Link href="/">
+        <Link href="/dashboard">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
               <svg
