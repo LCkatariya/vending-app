@@ -24,19 +24,19 @@ export default function AdminLayout({
       ? "lg:ml-[250px]"
       : "lg:ml-[75px]";
 
-  // useEffect(() => {
-  //   const data= localStorage.getItem("userDetails")||JSON.stringify({name:'lalchand'})
-  //   const userDetails = JSON.parse(data)
+  useEffect(() => {
+    const data= localStorage.getItem("userDetails")||JSON.stringify({name:'lalchand'})
+    const userDetails = JSON.parse(data)
     
-  //   if (userDetails?.email === "lalchand@gmail.com" && userDetails?.password === "lalchand") {
-  //     setLoading(false)
-  //   } else {
-  //     router.replace('/signin')
-  //   }
-  // }, [])
+    if (userDetails?.email === "lalchand@gmail.com" && userDetails?.password === "lalchand") {
+      setLoading(false)
+    } else {
+      router.replace('/signin')
+    }
+  }, [])
   return (
     <>
-      {!loading ?
+      {loading ?
         <div className="relative items-center block max-w-[100vw] min-h-[100vh] p-6 bg-neutral-primary-soft border border-default rounded-base shadow-xs">          
           <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
            <svg aria-hidden="true" className="inline w-16 h-16 text-neutral-tertiary animate-spin fill-brand" viewBox="0 0 100 101" fill="blue" xmlns="http://www.w3.org/2000/svg">
