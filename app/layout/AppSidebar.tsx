@@ -210,19 +210,19 @@ const AppSidebar: React.FC = () => {
     let submenuMatched = false;
     // ["main", "others"].forEach((menuType) => {
     //   const items = menuType === "main" ? navItems : othersItems;
-      navItems.forEach((nav, index) => {
-        if (nav.subItems) {
-          nav.subItems.forEach((subItem) => {
-            if (isActive(subItem.path)) {
-              setOpenSubmenu({
-                type: "main", // menuType as "main" | "others",
-                index,
-              });
-              submenuMatched = true;
-            }
-          });
-        }
-      });
+    navItems.forEach((nav, index) => {
+      if (nav.subItems) {
+        nav.subItems.forEach((subItem) => {
+          if (isActive(subItem.path)) {
+            setOpenSubmenu({
+              type: "main", // menuType as "main" | "others",
+              index,
+            });
+            submenuMatched = true;
+          }
+        });
+      }
+    });
     // });
 
     // If no submenu item matches, close the open submenu
@@ -304,7 +304,7 @@ const AppSidebar: React.FC = () => {
                   font-family="Inter, Arial, sans-serif"
                   font-size="22"
                   font-weight="600"
-                  fill={context?.theme==="dark"?"#fff":"#0F172A"}
+                  fill={context?.theme === "dark" ? "#fff" : "#0F172A"}
                 >
                   Admin Panel
                 </text>
@@ -312,25 +312,27 @@ const AppSidebar: React.FC = () => {
             </>
           ) : (
             <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="260"
-                height="40"
-                viewBox="0 0 40 40"
-              >
-                {/* <!-- Vending Machine Icon --> */}
-                <g transform="translate(0, 2)">
-                  <rect x="0" y="0" width="28" height="36" rx="4" fill="#1E3A8A" />
-                  <rect x="4" y="4" width="20" height="20" rx="2" fill="#E5E7EB" />
+              <div className={isMobileOpen&&!isExpanded?'hidden':''}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="260"
+                  height="40"
+                  viewBox="0 0 40 40"
+                >
+                  {/* <!-- Vending Machine Icon --> */}
+                  <g transform="translate(0, 2)">
+                    <rect x="0" y="0" width="28" height="36" rx="4" fill="#1E3A8A" />
+                    <rect x="4" y="4" width="20" height="20" rx="2" fill="#E5E7EB" />
 
-                  {/* <!-- shelves --> */}
-                  <line x1="4" y1="11" x2="24" y2="11" stroke="#94A3B8" stroke-width="1" />
-                  <line x1="4" y1="17" x2="24" y2="17" stroke="#94A3B8" stroke-width="1" />
+                    {/* <!-- shelves --> */}
+                    <line x1="4" y1="11" x2="24" y2="11" stroke="#94A3B8" stroke-width="1" />
+                    <line x1="4" y1="17" x2="24" y2="17" stroke="#94A3B8" stroke-width="1" />
 
-                  {/* <!-- buttons --> */}
-                  <rect x="18" y="26" width="6" height="6" rx="1" fill="#FACC15" />
-                </g>
-              </svg>
+                    {/* <!-- buttons --> */}
+                    <rect x="18" y="26" width="6" height="6" rx="1" fill="#FACC15" />
+                  </g>
+                </svg>
+              </div>
             </>
           )}
         </Link>
