@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import { EcommerceMetrics } from "@/app/components/ecommerce/EcommerceMetrics";
-// import BasicTables from "./(other-page)/(tables)/basic-tables/page";
 import ComponentCard from "@/app/components/common/ComponentCard";
 import BasicTableOne from "@/app/components/tables/BasicTableOne";
-// import MonthlyTarget from "@/app/components/ecommerce/MonthlyTarget";
-// import MonthlySalesChart from "@/app/components/ecommerce/MonthlySalesChart";
-// import StatisticsChart from "@/app/components/ecommerce/StatisticsChart";
-// import RecentOrders from "@/app/components/ecommerce/RecentOrders";
-// import DemographicCard from "@/app/components/ecommerce/DemographicCard";
 
 export const metadata: Metadata = {
   title:
@@ -29,22 +23,6 @@ export default function Ecommerce() {
             <BasicTableOne />
           </ComponentCard>
         </div>
-      </div>
-      {/* 
-      <div className="col-span-12 xl:col-span-5">
-        <MonthlyTarget />
-      </div>
-
-      <div className="col-span-12">
-        <StatisticsChart />
-      </div>
-
-      <div className="col-span-12 xl:col-span-5">
-        <DemographicCard />
-      </div> */}
-
-      <div className="col-span-12 xl:col-span-7">
-        {/* <RecentOrders /> */}
       </div>
     </div>
   );

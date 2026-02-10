@@ -30,7 +30,7 @@ const LiveDeviceData = ({ deviceId, getLiveDevicesData }:{deviceId:string, getLi
       <div className="max-w-full max-h-[80vh] overflow-x-auto overflow-y-auto">
         <Table>
           {/* Table Header */}
-          <TableHeader className="sticky top-0 bg-white border-b border-gray-300 dark:border-white/[0.05]">
+          <TableHeader className="sticky top-0 bg-white border-b border-gray-300 dark:border-white/[0.05] dark:bg-gray-900">
             <TableRow>
               <TableCell
                 isHeader
