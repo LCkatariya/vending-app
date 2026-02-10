@@ -11,7 +11,7 @@ import {
 import LiveDeviceData from "./LiveDeviceData";
 // import { getAllDeviceDetails, getLiveDevicesData, getUsers } from "@/app/servese/firebaseService";
 
-export default function MystyleTable({ allDevice, getLiveDevicesData }) {
+export default function MystyleTable({ allDevice, getLiveDevicesData }:{allDevice:any, getLiveDevicesData: any}) {
   const [isOpen, setIsOpen] = useState(false)
   const [deviceID, setDeviceID] = useState('')
   // const users = await getUsers();
@@ -67,7 +67,7 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }) {
 
         {/* Table Body */}
         <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-          {allDevice.map(({ deviceId, device }) => (
+          {allDevice.map(({ deviceId, device }:{deviceId:string, device:any}) => (
             <TableRow key={deviceId} onClick={()=>{setIsOpen(true);setDeviceID(deviceId)}}>
               <TableCell className="px-5 py-4 sm:px-6 text-start">
                 <div className="flex items-center gap-3">

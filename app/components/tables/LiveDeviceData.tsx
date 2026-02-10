@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "../ui/table";
 
-function timeFormat(timestamp){
+function timeFormat(timestamp:any){
 const date = new Date(timestamp * 1000);
 
 const formatted = date.toLocaleString("en-IN", {
@@ -23,7 +23,7 @@ const formatted = date.toLocaleString("en-IN", {
 }
 
 
-const LiveDeviceData = ({ deviceId, getLiveDevicesData }) => {
+const LiveDeviceData = ({ deviceId, getLiveDevicesData }:{deviceId:string, getLiveDevicesData:[{deviceId:'', liveDetails:[]}]}) => {
   const getDeviceData = getLiveDevicesData.filter(device => device.deviceId === deviceId)
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
@@ -61,7 +61,7 @@ const LiveDeviceData = ({ deviceId, getLiveDevicesData }) => {
 
           {/* Table Body */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {getDeviceData[0]?.liveDetails?.map((device) => (
+            {getDeviceData[0]?.liveDetails?.map((device:{timeStamp:string,phone:string, stock:number}) => (
               <TableRow key={device.timeStamp}>
                 <TableCell className="px-5 py-4 sm:px-6 text-start">
                   <div className="flex items-center gap-3">

@@ -15,7 +15,7 @@ export default function SignInForm() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const router = useRouter();
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:any) => {
     e.preventDefault()
     if(!email || !password) return;
     const data = {email:email, password:password, keepMeLogin: isChecked}
@@ -95,7 +95,7 @@ export default function SignInForm() {
             </form>
 
             <Modal isOpen={error} title="!!! User Not Found" onClose={() => setError(pre => !pre)} isContent={true} >
-              
+              <></>
             </Modal>
           </div>
         </div>

@@ -15,12 +15,12 @@ function normalizeUsers(data: any) {
 function normalizeDevices(data: any) {
   if (!data) return [];
 
-  return Object.entries(data).map(([key, value]) => ({
+  return Object.entries(data).map(([key, value]:[key:string, value:any]) => ({
     deviceId: key,
-    liveDetails: Object.entries(value).map(([key, value]) => ({
+    liveDetails: Object.entries(value).map(([key, value]:[key:string, value:any]) => ({
       timeStamp: key,
-      phone: value.phone,
-      stock: value.stock
+      phone: value?.phone,
+      stock: value?.stock
     }))
   }))
 }

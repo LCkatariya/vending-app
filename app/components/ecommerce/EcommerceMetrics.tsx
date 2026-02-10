@@ -4,15 +4,15 @@ import { getAllDeviceDetails, getUsers } from "@/app/servese/firebaseService";
 import { useEffect, useState } from "react";
 
 export const EcommerceMetrics = () => {
-  const [user, setUser] = useState('')
-  const [device, setDevice] = useState('')
+  const [user, setUser] = useState(0)
+  const [device, setDevice] = useState(0)
   useEffect(() => {
     async function getDataFromSever() {
       const users = await getUsers();
       const allDevice = await getAllDeviceDetails()
       console.log("user, allDevice", users, allDevice)
-      setUser(users.length)
-      setDevice(allDevice.length)
+      setUser(users?.length|0)
+      setDevice(allDevice?.length|0)
     }
     getDataFromSever()
   }, [])

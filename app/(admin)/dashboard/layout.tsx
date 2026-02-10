@@ -25,15 +25,17 @@ export default function AdminLayout({
       : "lg:ml-[75px]";
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem("userDetails"))
+    const data= localStorage.getItem("userDetails")
+    if(!data) return;
+    const userDetails = JSON.parse(data)
     if (userDetails === null) return;
     console.log(userDetails)
     if (userDetails?.email === "lalchand@gmail.com" && userDetails?.password === "lalchand") {
       setLoading(false)
     } else {
-      router.push('/signin')
+      router.replace('/signin')
     }
-  }, [])
+  }, [router])
   return (
     <>
       {loading ?
