@@ -26,6 +26,7 @@ export default function AdminLayout({
 
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("userDetails"))
+    if (userDetails === null) return;
     console.log(userDetails)
     if (userDetails?.email === "lalchand@gmail.com" && userDetails?.password === "lalchand") {
       setLoading(false)
