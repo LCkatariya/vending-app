@@ -72,7 +72,7 @@ const navItems: NavItem[] = [
 // ];
 
 const AppSidebar: React.FC = () => {
-  const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const { isExpanded, isMobileOpen, isHovered, setIsHovered, isMobile } = useSidebar();
   const pathname = usePathname();
   const context = useContext(ThemeContext);
 
@@ -312,7 +312,7 @@ const AppSidebar: React.FC = () => {
             </>
           ) : (
             <>
-              <div className={isMobileOpen&&!isExpanded?'hidden':''}>
+              <div className={isMobile?'hidden':''}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="260"
