@@ -28,7 +28,7 @@ export default function SignInForm() {
       if(error.code){
         setError(true)
       }
-    }).finally(res=>{})
+    })
     // }else{
     //   setError(true)
     // }

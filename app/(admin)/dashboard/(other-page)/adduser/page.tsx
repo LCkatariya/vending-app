@@ -31,15 +31,25 @@ export default function CreateUserForm() {
   };
 
 
-  const handleSubmit = (): void => {
+const handleSubmit = async (): Promise<void> => {
+  try {
     setIsSubmitting(true);
-    registerUser(formData.email, formData.password, formData?.role||'user').finally(res=>{
-      console.log(res)
-      setIsSubmitting(false)
-      setFormData({email:'', password: '', role: ''})
-    })
 
-  };
+    const res = await registerUser(
+      formData.email,
+      formData.password,
+      formData?.role || "user"
+    );
+
+    console.log(res);
+
+    setFormData({ email: "", password: "", role: "" });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const options = [{ label: 'admin', value: 'admin' }, { label: 'user', value: 'user' }]
 
