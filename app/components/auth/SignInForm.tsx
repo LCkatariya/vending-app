@@ -7,6 +7,7 @@ import { EyeCloseIcon, EyeIcon } from "@/app/icons";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Modal } from "../ui/modal";
+import { loginUser } from "./LoginUser";
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,14 +19,19 @@ export default function SignInForm() {
   const handleSubmit = (e:any) => {
     e.preventDefault()
     if(!email || !password) return;
-    const data = {email:email, password:password, keepMeLogin: isChecked}
-    if (data.email === 'lalchand@gmail.com' && data.password === "lalchand") {
+    // const data = {email:email, password:password, keepMeLogin: isChecked}
+    // if (data.email === 'lalchand@gmail.com' && data.password === "lalchand") {
 
-      localStorage.setItem('userDetails', JSON.stringify(data))
-      router.push('/dashboard')
-    }else{
-      setError(true)
-    }
+    //   localStorage.setItem('userDetails', JSON.stringify(data))
+    //   router.push('/dashboard')
+    loginUser(email, password).then(res=>{router.push('/dashboard');}).catch(error=>{
+      if(error.code){
+        setError(true)
+      }
+    }).finally(res=>{})
+    // }else{
+    //   setError(true)
+    // }
   }
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full">
@@ -35,10 +41,10 @@ export default function SignInForm() {
         <div>
           <div className="mb-5 sm:mb-8">
             <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
-              Sign In
+              Login
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Enter your email and password to sign in!
+              Enter your login id and password !
             </p>
           </div>
           <div>
@@ -46,7 +52,7 @@ export default function SignInForm() {
               <div className="space-y-6">
                 <div>
                   <Label>
-                    Email <span className="text-error-500">*</span>{" "}
+                    Login id <span className="text-error-500">*</span>{" "}
                   </Label>
                   <Input placeholder="info@gmail.com" type="email" onChange={e => setEmail(e.target.value)} />
                 </div>
@@ -88,7 +94,7 @@ export default function SignInForm() {
                 </div>
                 <div>
                   <Button className="w-full" size="sm">
-                    Sign in
+                    Login
                   </Button>
                 </div>
               </div>

@@ -33,7 +33,7 @@ const navItems: NavItem[] = [
     icon: <UserCircleIcon />,
     name: "Admin Pages",
     subItems: [
-      // { name: "Add Device", path: "/add-device", pro: false },
+      { name: "Add User", path: "/dashboard/adduser", pro: false },
       // { name: "Assign Device", path: "/assign-device", pro: false }
     ],
   },
