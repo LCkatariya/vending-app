@@ -71,7 +71,7 @@ if(!validateEmail(formData.email)){
 
       setFormData({ username:"", email: "", password: "", role: "" });
     } catch (error) {
-      console.error('got an error', error.code);
+      console.error('got an error', error?.code);
       setErrorM(error?.code||null)
     } finally {
       setIsSubmitting(false);
