@@ -12,5 +12,5 @@ export default function LogoutButton() {
     router.replace("/login"); // redirect after logout
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return <button className="dark:text-gray-300" onClick={handleLogout}>Logout</button>;
 }

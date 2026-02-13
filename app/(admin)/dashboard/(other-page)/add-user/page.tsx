@@ -11,6 +11,19 @@ import { ChevronDownIcon, EyeCloseIcon, EyeIcon } from '@/app/icons';
 import AdminRoute from '@/app/layout/AdminRoute';
 import { useState } from 'react';
 
+export const validateEmail = (email: string): boolean => {
+  const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  return emailRegex.test(email);
+};
+
+
+interface ERRORS {
+  password: boolean
+  email: boolean
+}
+
 export default function CreateUserForm() {
   const [formData, setFormData] = useState({
     username:'',
@@ -18,6 +31,8 @@ export default function CreateUserForm() {
     password: '',
     role: ''
   });
+  const [errors, setErrors] = useState<ERRORS>({password:false, email:false})
+  const [errorM, setErrorM] = useState<string | null>(null)
 
   console.log("lalchandF", formData)
 
@@ -30,13 +45,21 @@ export default function CreateUserForm() {
       ...prev,
       [name]: value
     }));
+
+    setErrors({password:false, email:false})
   };
 
 
   const handleSubmit = async (): Promise<void> => {
     try {
       setIsSubmitting(true);
-
+// setErrors({password:true})
+if(formData.password.length<6){
+  setErrors({...errors, password:true})
+}
+if(!validateEmail(formData.email)){
+  setErrors({...errors, email:true})
+}
       const res = await registerUser(
         formData.username,
         formData.email,
@@ -44,11 +67,12 @@ export default function CreateUserForm() {
         formData?.role || "user"
       );
 
-      console.log(res);
+      console.log('userSubmited', res);
 
       setFormData({ username:"", email: "", password: "", role: "" });
     } catch (error) {
-      console.error(error);
+      console.error('got an error', error.code);
+      setErrorM(error?.code||null)
     } finally {
       setIsSubmitting(false);
     }
@@ -71,9 +95,10 @@ export default function CreateUserForm() {
                 <Input
                   type="text"
                   name='username'
+                  autoComplete="new-text"
                   value={formData.username}
                   onChange={handleChange}
-                  placeholder="Enter your email"
+                  placeholder="User Name"
                   className="dark:bg-dark-900"
                 />
              
@@ -83,10 +108,13 @@ export default function CreateUserForm() {
                 <Input
                   type="email"
                   name='email'
+                  autoComplete="new-email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
                   className="dark:bg-dark-900"
+                  error={errors.email}
+                  hint={errors.email?'Invalid Email...': ''}
                 />
            
 
@@ -99,10 +127,13 @@ export default function CreateUserForm() {
                   value={formData.password}
                   onChange={handleChange}
                   className='dark:bg-dark-900'
+                  error={errors?.password}
+                  autoComplete="new-password"
+                  hint={errors?.password || errorM ?(errorM||'password at least 6 character'):''}
                 />
                 <button
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-[72%]"
+                  className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-[70%]"
                 >
                   {showPassword ? (
                     <EyeIcon className="fill-gray-500 dark:fill-gray-400" />

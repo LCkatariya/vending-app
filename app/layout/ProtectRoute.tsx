@@ -33,5 +33,5 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
     </div>
   )
 
-  return <>{children}</>;
+  return <div className="dark:bg-gray-900">{children}</div>;
 }
