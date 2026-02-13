@@ -8,12 +8,12 @@ import { auth, db } from "@/app/lib/firebase";
 export const AuthContext = createContext<any>('');
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (currentUser) => {
+    const unsub = onAuthStateChanged(auth, async (currentUser:any) => {
       if (currentUser) {
         console.log("currentUser", currentUser)
         setUser(currentUser);
