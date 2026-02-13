@@ -20,7 +20,7 @@ export default function AuthLayout({
               {/* <!-- ===== Common Grid Shape Start ===== --> */}
               <GridShape />
               <div className="flex flex-col items-center max-w-xs">
-                <Link href="/signin" className="block ">
+                <Link href="/login" className="block ">
                   <Image
                     width={500}
                     height={500}

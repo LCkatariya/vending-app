@@ -1,19 +1,14 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback, useContext } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/app/context/SidebarContext";
 import {
-  BoxCubeIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  PieChartIcon,
-  PlugInIcon,
   UserCircleIcon,
 } from "../icons/index";
-import SidebarWidget from "./SidebarWidget";
 import { ThemeContext } from "../context/ThemeContext";
 
 type NavItem = {
@@ -40,42 +35,19 @@ const navItems: NavItem[] = [
 
 ];
 
-// const othersItems: NavItem[] = [
-//   {
-//     icon: <PieChartIcon />,
-//     name: "Charts",
-//     subItems: [
-//       { name: "Line Chart", path: "/line-chart", pro: false },
-//       { name: "Bar Chart", path: "/bar-chart", pro: false },
-//     ],
-//   },
-//   {
-//     icon: <BoxCubeIcon />,
-//     name: "UI Elements",
-//     subItems: [
-//       { name: "Alerts", path: "/alerts", pro: false },
-//       { name: "Avatar", path: "/avatars", pro: false },
-//       { name: "Badge", path: "/badge", pro: false },
-//       { name: "Buttons", path: "/buttons", pro: false },
-//       { name: "Images", path: "/images", pro: false },
-//       { name: "Videos", path: "/videos", pro: false },
-//     ],
-//   },
-//   {
-//     icon: <PlugInIcon />,
-//     name: "Authentication",
-//     subItems: [
-//       { name: "Sign In", path: "/signin", pro: false },
-//       { name: "Sign Up", path: "/signup", pro: false },
-//     ],
-//   },
-// ];
+const userItems: NavItem[] = [
+  {
+    icon: <GridIcon />,
+    name: "Dashboard",
+    path: "/dashboard"
+  },
+]
 
-const AppSidebar: React.FC = () => {
+const AppSidebar: React.FC<any> = ({ userDetails }) => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered, isMobile } = useSidebar();
   const pathname = usePathname();
   const context = useContext(ThemeContext);
-
+  console.log('userDetails', userDetails)
   const renderMenuItems = (
     navItems: NavItem[],
     menuType: "main" | "others"
@@ -306,13 +278,13 @@ const AppSidebar: React.FC = () => {
                   font-weight="600"
                   fill={context?.theme === "dark" ? "#fff" : "#0F172A"}
                 >
-                  Admin Panel
+                  {userDetails.role === 'admin' ? 'Admin' : 'User'} Panel
                 </text>
               </svg>
             </>
           ) : (
             <>
-              <div className={isMobile?'hidden':''}>
+              <div className={isMobile ? 'hidden' : ''}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="260"
@@ -353,7 +325,7 @@ const AppSidebar: React.FC = () => {
                   <HorizontaLDots />
                 )}
               </h2>
-              {renderMenuItems(navItems, "main")}
+              {renderMenuItems(userDetails.role === 'admin' ? navItems : userItems, "main")}
             </div>
           </div>
         </nav>
