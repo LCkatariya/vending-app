@@ -70,7 +70,7 @@ if(!validateEmail(formData.email)){
       console.log('userSubmited', res);
 
       setFormData({ username:"", email: "", password: "", role: "" });
-    } catch (error) {
+    } catch (error:any) {
       console.error('got an error', error?.code);
       setErrorM(error?.code||null)
     } finally {
