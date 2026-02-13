@@ -3,7 +3,7 @@ import { ThemeToggleButton } from "@/app/components/common/ThemeToggleButton";
 import NotificationDropdown from "@/app/components/header/NotificationDropdown";
 import UserDropdown from "@/app/components/header/UserDropdown";
 import { useSidebar } from "@/app/context/SidebarContext";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import React, { useState ,useEffect,useRef} from "react";
 
@@ -171,7 +171,7 @@ const AppHeader: React.FC<any> = ({userDetails}) => {
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- User Area --> */}
-          <UserDropdown /> 
+          <UserDropdown userDetails={userDetails} /> 
     
         </div>
       </div>

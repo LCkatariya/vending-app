@@ -12,6 +12,7 @@ import { useContext, useEffect } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 
 export interface USER_DETAILS {
+  username?: string
   user: string
   role: string
   loading: boolean
@@ -23,12 +24,12 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
-  const { user, role, loading } = useContext(AuthContext);
-  const userDetails:USER_DETAILS = {user, role, loading}
+  const {username, user, role, loading } = useContext(AuthContext);
+  const userDetails:USER_DETAILS = {username, user, role, loading}
 
   useEffect(() => {
-    console.log("user, role, loading", user, role, loading)
-  }, [user, role, loading]);
+    console.log("user, role, loading",username, user, role, loading)
+  }, [username, user, role, loading]);
 
 
   // Dynamic class for main content margin based on sidebar state

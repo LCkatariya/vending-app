@@ -10,6 +10,7 @@ export const AuthContext = createContext<any>('');
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         const snap = await getDoc(doc(db, "users", currentUser.uid));
         setRole(snap.data()?.role);
+        setUsername(snap.data()?.username)
       } else {
         setUser(null);
         setRole(null);
@@ -31,7 +33,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, role, loading }}>
+    <AuthContext.Provider value={{ username, user, role, loading }}>
       {children}
     </AuthContext.Provider>
   );
