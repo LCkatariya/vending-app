@@ -15,7 +15,7 @@ export default function AdminLayout({
 }) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
   const router = useRouter()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   // Dynamic class for main content margin based on sidebar state
   const mainContentMargin = isMobileOpen
@@ -24,16 +24,16 @@ export default function AdminLayout({
       ? "lg:ml-[250px]"
       : "lg:ml-[75px]";
 
-  useEffect(() => {
-    const data= localStorage.getItem("userDetails")||JSON.stringify({name:'lalchand'})
-    const userDetails = JSON.parse(data)
+  // useEffect(() => {
+  //   const data= localStorage.getItem("userDetails")||JSON.stringify({name:'lalchand'})
+  //   const userDetails = JSON.parse(data)
     
-    if (userDetails?.email === "lalchand@gmail.com" && userDetails?.password === "lalchand") {
-      setLoading(false)
-    } else {
-      router.replace('/signin')
-    }
-  }, [])
+  //   if (userDetails?.email === "lalchand@gmail.com" && userDetails?.password === "lalchand") {
+  //     setLoading(false)
+  //   } else {
+  //     router.replace('/signin')
+  //   }
+  // }, [])
   return (
     <>
       {loading ?
