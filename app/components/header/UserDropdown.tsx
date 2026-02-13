@@ -31,11 +31,11 @@ export default function UserDropdown({ userDetails }: any) {
             alt="User"
           /> */}
           <div className="w-11 h-11 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold">
-            {(userDetails?.username||'a')?.charAt(0).toUpperCase()}
+            {(userDetails?.username||'u')?.charAt(0).toUpperCase()}
           </div>
         </span>
 
-        <span className="block mr-1 font-medium text-theme-sm">{userDetails?.username || 'user'}</span>
+        <span className="block mr-1 font-medium text-theme-sm">{userDetails?.username || 'User'}</span>
 
         {/* <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
