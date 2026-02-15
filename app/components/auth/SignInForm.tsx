@@ -5,9 +5,12 @@ import Label from "@/app/components/form/Label";
 import Button from "@/app/components/ui/button/Button";
 import { EyeCloseIcon, EyeIcon } from "@/app/icons";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "../ui/modal";
 import { loginUser } from "./LoginUser";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/app/lib/firebase";
+// import Link from "next/link";
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +19,8 @@ export default function SignInForm() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const router = useRouter();
+  
+  // const [checking, setChecking] = useState(true);
   const handleSubmit = (e:any) => {
     e.preventDefault()
     if(!email || !password) return;
@@ -33,9 +38,22 @@ export default function SignInForm() {
     //   setError(true)
     // }
   }
+    useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.replace("/dashboard"); // redirect if already logged in
+      } else {
+        // setChecking(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  // if (checking) return null;
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full">
-      <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
+      <div className="w-full max-w-lg mx-auto mb-5">
       </div>
       <div className="flex flex-col justify-center lg:flex-1 w-full max-w-md mx-auto">
         <div>
@@ -78,20 +96,20 @@ export default function SignInForm() {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Checkbox checked={isChecked} onChange={setIsChecked} />
                     <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
                       Keep me logged in
                     </span>
                   </div>
-                  {/* <Link
+                  <Link
                     href=""
                     className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
                   >
                     Forgot password?
-                  </Link> */}
-                </div>
+                  </Link>
+                </div> */}
                 <div>
                   <Button className="w-full" size="sm">
                     Login

@@ -13,7 +13,7 @@ export default function AdminRoute({ children }: any) {
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        router.replace("/login");
+        router.replace("/");
       } else if (role !== "admin") {
         router.replace("/dashboard");
       }else{
