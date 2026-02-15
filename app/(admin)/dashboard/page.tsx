@@ -5,8 +5,8 @@ import BasicTableOne from "@/app/components/tables/BasicTableOne";
 
 export const metadata: Metadata = {
   title:
-    "Dashboard",
-  description: "User Dashboard",
+    "Vending Machin Dashboard",
+  description: "Vending Machin Dashboard",
 };
 
 export default function Ecommerce() {
