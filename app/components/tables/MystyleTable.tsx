@@ -9,9 +9,10 @@ import {
   TableRow,
 } from "../ui/table";
 import LiveDeviceData from "./LiveDeviceData";
+import Badge from "../ui/badge/Badge";
 // import { getAllDeviceDetails, getLiveDevicesData, getUsers } from "@/app/servese/firebaseService";
 
-export default function MystyleTable({ allDevice, getLiveDevicesData }:{allDevice:any, getLiveDevicesData: any}) {
+export default function MystyleTable({ allDevice, getLiveDevicesData }: { allDevice: any, getLiveDevicesData: any }) {
   const [isOpen, setIsOpen] = useState(false)
   const [deviceID, setDeviceID] = useState('')
   // const users = await getUsers();
@@ -31,6 +32,18 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }:{allDevic
               className="px-5 py-3 font-medium text-gray-800 text-start text-theme-xs dark:text-gray-400"
             >
               Device
+            </TableCell>
+            <TableCell
+              isHeader
+              className="px-5 py-3 font-medium text-gray-800 text-start text-theme-xs dark:text-gray-400"
+            >
+              Stock
+            </TableCell>
+            <TableCell
+              isHeader
+              className="px-5 py-3 font-medium text-gray-800 text-start text-theme-xs dark:text-gray-400"
+            >
+              Status
             </TableCell>
             <TableCell
               isHeader
@@ -67,8 +80,8 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }:{allDevic
 
         {/* Table Body */}
         <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-          {allDevice.map(({ deviceId, device }:{deviceId:string, device:any}) => (
-            <TableRow key={deviceId} onClick={()=>{setIsOpen(true);setDeviceID(deviceId)}}>
+          {allDevice.map(({ deviceId, device }: { deviceId: string, device: any }) => (
+            <TableRow key={deviceId} onClick={() => { setIsOpen(true); setDeviceID(deviceId) }}>
               <TableCell className="px-5 py-4 sm:px-6 text-start">
                 <div className="flex items-center gap-3">
                   <div>
@@ -80,6 +93,24 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }:{allDevic
                         </span> */}
                   </div>
                 </div>
+              </TableCell>
+              <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                {device?.S}
+              </TableCell>
+              <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                <Badge
+                  size="sm"
+                  color={
+                    "Active" === "Active"
+                      ? "success"
+                      : device?.T === "Pending"
+                        ? "warning"
+                        : "error"
+                  }
+                >
+                  Online
+                </Badge>
+
               </TableCell>
               <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                 {device?.phone}
@@ -105,7 +136,7 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }:{allDevic
           ))}
         </TableBody>
       </Table>
-      <Modal isOpen={isOpen} onClose={()=>setIsOpen(pre=>!pre)} title={deviceID}>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(pre => !pre)} title={deviceID}>
         <LiveDeviceData deviceId={deviceID} getLiveDevicesData={getLiveDevicesData} />
       </Modal>
     </>
