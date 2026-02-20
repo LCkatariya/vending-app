@@ -125,7 +125,7 @@ export function Modal({
       />
 
       {/* Modal box */}
-      <div className="relative z-10 w-full max-w-lg rounded-lg bg-white shadow-lg dark:bg-gray-900">
+      <div className="relative z-10 w-full max-w-xl rounded-lg bg-white shadow-lg dark:bg-gray-900">
         {/* Header */}
         <div className="flex items-center justify-between  px-4 py-3 ">
           <h2 className="text-lg font-semibold text-gray-400">{title}</h2>

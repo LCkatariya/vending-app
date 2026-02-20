@@ -12,6 +12,11 @@ import LiveDeviceData from "./LiveDeviceData";
 import Badge from "../ui/badge/Badge";
 // import { getAllDeviceDetails, getLiveDevicesData, getUsers } from "@/app/servese/firebaseService";
 
+const OnlineStatus = (timestamp: number): boolean => {
+  const currentTimestamp = Math.floor(Date.now() / 1000); // seconds
+  return (currentTimestamp - timestamp) < 600;
+};
+
 export default function MystyleTable({ allDevice, getLiveDevicesData }: { allDevice: any, getLiveDevicesData: any }) {
   const [isOpen, setIsOpen] = useState(false)
   const [deviceID, setDeviceID] = useState('')
@@ -101,14 +106,12 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }: { allDev
                 <Badge
                   size="sm"
                   color={
-                    "Active" === "Active"
+                    OnlineStatus(device?.T)
                       ? "success"
-                      : device?.T === "Pending"
-                        ? "warning"
-                        : "error"
+                      : "error"
                   }
                 >
-                  Online
+                  {OnlineStatus(device?.T)?'Online':'Offline'}
                 </Badge>
 
               </TableCell>
