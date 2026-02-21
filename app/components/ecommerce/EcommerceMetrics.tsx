@@ -3,9 +3,15 @@
 import { getAllDeviceDetails, getUsers } from "@/app/servese/firebaseService";
 import { useEffect, useState } from "react";
 
+const OnlineStatus = (timestamp: number): boolean => {
+  const currentTimestamp = Math.floor(Date.now() / 1000); // seconds
+  return (currentTimestamp - timestamp) < 600;
+};
+
 export const EcommerceMetrics = () => {
   const [user, setUser] = useState(0)
   const [device, setDevice] = useState(0)
+  const [online, setOnline] = useState(0)
   useEffect(() => {
     async function getDataFromSever() {
       const users = await getUsers();
@@ -13,6 +19,7 @@ export const EcommerceMetrics = () => {
       console.log("user, allDevice", users, allDevice)
       setUser(users?.length)
       setDevice(allDevice?.length)
+      setOnline(allDevice.filter(item=>OnlineStatus((item.device as {T:number})?.T))?.length)
     }
     getDataFromSever()
   })
@@ -38,7 +45,7 @@ export const EcommerceMetrics = () => {
             Online Device
           </div>
           <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-            {device}
+            {online}
           </h4>
         </div>
       </div>
