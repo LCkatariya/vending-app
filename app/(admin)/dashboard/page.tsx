@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Vending Machin Dashboard",
   description: "Vending Machin Dashboard",
 };
-
+export const revalidate = 10;
 export default function Ecommerce() {
   
   return (
