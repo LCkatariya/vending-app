@@ -1,7 +1,7 @@
 import MystyleTable from "./MystyleTable";
 
 
-import { getAllDeviceDetails, getLiveDevicesData, getUsers } from "@/app/servese/firebaseService";
+import { getAllDeviceDetails, getLiveDevicesData } from "@/app/servese/firebaseService";
 export const revalidate = 10;
 export default async function BasicTableOne() {
     const allDevice = await getAllDeviceDetails()

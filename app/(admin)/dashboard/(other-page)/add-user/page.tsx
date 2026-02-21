@@ -175,7 +175,7 @@ if(!validateEmail(formData.email)){
 
             </div>
               <div className='flex justify-end gap-2'>
-                <Button onClick={() => setFormData({username: "", email: "", password: "", role: "" })} size="sm" variant="outline">Cencel</Button>
+                <Button onClick={() => setFormData({username: "", email: "", password: "", role: "" })} size="sm" variant="outline">Cancel</Button>
                 <Button onClick={handleSubmit} size="sm" variant="primary">Submit</Button>
               </div>
           </ComponentCard>
