@@ -1,4 +1,4 @@
-import { ref, get } from "firebase/database";
+import { ref, get, update, remove } from "firebase/database";
 import { rtdb } from "../lib/firebase";
 
 function normalizeUsers(data: any) {
@@ -64,4 +64,28 @@ export async function getAllDeviceDetails() {
   }
 
   return normalizeDevicesDetails(snapshot.val());
+}
+
+const uid = ''
+//this is for assign device to user
+async function assignDeviceToUser(uid: string, deviceId: string) {
+  await update(ref(rtdb, `users/${uid}/assignedDevices`), {
+    [deviceId]: true
+  });
+
+  console.log("✅ Device assigned successfully");
+}
+
+// this is for remove device
+async function unassignDevice(uid: string, deviceId: string) {
+  await remove(ref(rtdb, `users/${uid}/assignedDevices/${deviceId}`));
+}
+
+// this is for get device
+
+const snapshot = await get(ref(rtdb, `users/${uid}/assignedDevices`));
+
+if (snapshot.exists()) {
+  const devices = Object.keys(snapshot.val());
+  console.log(devices);
 }
