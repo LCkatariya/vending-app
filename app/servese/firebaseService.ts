@@ -1,5 +1,6 @@
 import { ref, get, update, remove } from "firebase/database";
-import { rtdb } from "../lib/firebase";
+import { db, rtdb } from "../lib/firebase";
+import { arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 
 function normalizeUsers(data: any) {
   if (!data) return [];
@@ -15,9 +16,9 @@ function normalizeUsers(data: any) {
 function normalizeDevices(data: any) {
   if (!data) return [];
 
-  return Object.entries(data).map(([key, value]:[key:string, value:any]) => ({
+  return Object.entries(data).map(([key, value]: [key: string, value: any]) => ({
     deviceId: key,
-    liveDetails: Object.entries(value).map(([key, value]:[key:string, value:any]) => ({
+    liveDetails: Object.entries(value).map(([key, value]: [key: string, value: any]) => ({
       timeStamp: key,
       phone: value?.phone,
       stock: value?.stock
@@ -89,3 +90,26 @@ if (snapshot.exists()) {
   const devices = Object.keys(snapshot.val());
   console.log(devices);
 }
+
+export const addMacId = async (userId: string, macId: string) => {
+  const q = query(
+    collection(db, "users"),
+    where("email", "==", userId)
+  );
+
+  let uuid:string='';
+
+  const querySnapshot = await getDocs(q);
+
+  console.log('querySnapshot', querySnapshot)
+
+  querySnapshot.forEach((docSnap) => {
+    console.log("UID:", docSnap.id); // 👈 THIS IS THE UID
+    uuid = docSnap.id
+  });
+  const userRef = doc(db, "users", uuid);
+  console.log(userRef)
+  await updateDoc(userRef, {
+    macIds: arrayUnion(macId)
+  });
+};

@@ -14,5 +14,6 @@ export const registerUser = async (username:string, email:string, password:strin
     email,
     role, // "admin" or "user"
     createdAt: Date.now(),
+    macIds: []
   });
 };

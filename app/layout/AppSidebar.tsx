@@ -30,7 +30,7 @@ const navItems: NavItem[] = [
     subItems: [
       { name: "Add User", path: "/dashboard/add-user", pro: false },
       { name: "Add Device", path: "/dashboard/add-device", pro: false },
-      // { name: "Assign Device", path: "/dashboard/assign-device", pro: false }
+      { name: "Assign Device", path: "/dashboard/assign-device", pro: false }
     ],
   },
 

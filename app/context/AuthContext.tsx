@@ -10,17 +10,19 @@ export const AuthContext = createContext<any>('');
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [macIds, setMacIds] = useState<string[]>([]);
   const [username, setUsername] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (currentUser:any) => {
+    const unsub = onAuthStateChanged(auth, async (currentUser: any) => {
       if (currentUser) {
         console.log("currentUser", currentUser)
         setUser(currentUser);
 
         const snap = await getDoc(doc(db, "users", currentUser.uid));
         setRole(snap.data()?.role);
+        setMacIds(snap.data()?.macIds)
         setUsername(snap.data()?.username)
       } else {
         setUser(null);
@@ -33,7 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ username, user, role, loading }}>
+    <AuthContext.Provider value={{ username, user, role, macIds, loading }}>
       {children}
     </AuthContext.Provider>
   );

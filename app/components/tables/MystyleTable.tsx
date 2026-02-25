@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal } from "../ui/modal";
 import {
   Table,
@@ -10,6 +10,8 @@ import {
 } from "../ui/table";
 import LiveDeviceData from "./LiveDeviceData";
 import Badge from "../ui/badge/Badge";
+import { USER_DETAILS } from "@/app/(admin)/dashboard/layout";
+import { AuthContext } from "@/app/context/AuthContext";
 // import { getAllDeviceDetails, getLiveDevicesData, getUsers } from "@/app/servese/firebaseService";
 
 const OnlineStatus = (timestamp: number): boolean => {
@@ -20,12 +22,10 @@ const OnlineStatus = (timestamp: number): boolean => {
 export default function MystyleTable({ allDevice, getLiveDevicesData }: { allDevice: any, getLiveDevicesData: any }) {
   const [isOpen, setIsOpen] = useState(false)
   const [deviceID, setDeviceID] = useState('')
-  // const users = await getUsers();
-  // const getLiveDevices = await getLiveDevicesData();
-  // const allDevice = await getAllDeviceDetails()
-  console.log("allDevices", allDevice)
-  // console.log("getLiveDevices", getLiveDevices)
-  // console.log("users", users)
+  const { role, macIds } = useContext(AuthContext);
+
+
+
   return (
     <>
       <Table>
@@ -85,7 +85,7 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }: { allDev
 
         {/* Table Body */}
         <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-          {allDevice.map(({ deviceId, device }: { deviceId: string, device: any }) => (
+          {allDevice.filter((item:any)=>role==='user'?macIds?.includes(item.deviceId):item.deviceId).map(({ deviceId, device }: { deviceId: string, device: any }) => (
             <TableRow key={deviceId} onClick={() => { setIsOpen(true); setDeviceID(deviceId) }}>
               <TableCell className="px-5 py-4 sm:px-6 text-start">
                 <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function MystyleTable({ allDevice, getLiveDevicesData }: { allDev
                       : "error"
                   }
                 >
-                  {OnlineStatus(device?.T)?'Online':'Offline'}
+                  {OnlineStatus(device?.T) ? 'Online' : 'Offline'}
                 </Badge>
 
               </TableCell>

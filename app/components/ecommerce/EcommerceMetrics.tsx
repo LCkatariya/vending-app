@@ -1,7 +1,8 @@
 "use client";
 
+import { AuthContext } from "@/app/context/AuthContext";
 import { getAllDeviceDetails, getUsers } from "@/app/servese/firebaseService";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const OnlineStatus = (timestamp: number): boolean => {
   const currentTimestamp = Math.floor(Date.now() / 1000); // seconds
@@ -12,14 +13,15 @@ export const EcommerceMetrics = () => {
   const [user, setUser] = useState(0)
   const [device, setDevice] = useState(0)
   const [online, setOnline] = useState(0)
+  const { role, macIds } = useContext(AuthContext);
   useEffect(() => {
     async function getDataFromSever() {
       const users = await getUsers();
       const allDevice = await getAllDeviceDetails()
       console.log("user, allDevice", users, allDevice)
       setUser(users?.length)
-      setDevice(allDevice?.length)
-      setOnline(allDevice.filter(item=>OnlineStatus((item.device as {T:number})?.T))?.length)
+      setDevice(role === "user" ? macIds?.length : allDevice?.length)
+      setOnline(allDevice.filter(el => role === "user" ? macIds.includes(el.deviceId) : el.deviceId).filter(item => OnlineStatus((item.device as { T: number })?.T))?.length)
     }
     getDataFromSever()
   })
@@ -50,7 +52,7 @@ export const EcommerceMetrics = () => {
         </div>
       </div>
 
-      <div className="rounded-2xl  border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
+      {role !== "user" && <div className="rounded-2xl  border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-between ">
           <div className="font-bold text-gray-500 dark:text-gray-400">
             Active User
@@ -59,7 +61,7 @@ export const EcommerceMetrics = () => {
             {user}
           </h4>
         </div>
-      </div>
+      </div>}
 
       {/* <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">

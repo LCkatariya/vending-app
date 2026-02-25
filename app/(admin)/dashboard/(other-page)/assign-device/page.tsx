@@ -9,6 +9,7 @@ import Label from '@/app/components/form/Label';
 import Button from '@/app/components/ui/button/Button';
 // import { ChevronDownIcon, EyeCloseIcon, EyeIcon } from '@/app/icons';
 import AdminRoute from '@/app/layout/AdminRoute';
+import { addMacId } from '@/app/servese/firebaseService';
 import { useState } from 'react';
 
 export const validateEmail = (email: string): boolean => {
@@ -48,31 +49,13 @@ export default function CreateUserForm() {
 
 
   const handleSubmit = async (): Promise<void> => {
-//     try {
-//       setIsSubmitting(true);
-// // setErrors({password:true})
-// if(formData.password.length<6){
-//   setErrors({...errors, password:true})
-// }
-// if(!validateEmail(formData.email)){
-//   setErrors({...errors, email:true})
-// }
-//       const res = await registerUser(
-//         formData.username,
-//         formData.email,
-//         formData.password,
-//         formData?.role || "user"
-//       );
-
-//       console.log('userSubmited', res);
-
-//       setFormData({ macId:"", email: "" });
-//     } catch (error:any) {
-//       console.error('got an error', error?.code);
-//       setErrorM(error?.code||null)
-//     } finally {
-//       setIsSubmitting(false);
-//     }
+    setIsSubmitting(true)
+    console.log(formData)
+    addMacId(formData.email, formData.macId).finally(():void=>{
+      // console.log(res)
+      setFormData({macId:'', email:''})
+      setIsSubmitting(false)
+    })
   };
 
   // const options = [{ label: 'admin', value: 'admin' }, { label: 'user', value: 'user' }]
@@ -91,11 +74,11 @@ export default function CreateUserForm() {
                 <Label>Mac. Id</Label>
                 <Input
                   type="text"
-                  name='username'
+                  name='macId'
                   autoComplete="new-text"
                   value={formData.macId}
                   onChange={handleChange}
-                  placeholder="User Name"
+                  placeholder="Mac. Id"
                   className="dark:bg-dark-900"
                 />
              

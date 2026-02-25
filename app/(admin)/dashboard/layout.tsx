@@ -15,6 +15,7 @@ export interface USER_DETAILS {
   username?: string
   user: string
   role: string
+  macIds?: []
   loading: boolean
 }
 
