@@ -91,7 +91,7 @@ export default function CreateUserForm() {
                   autoComplete="new-email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter your email"
+                  placeholder="Enter user email"
                   className="dark:bg-dark-900"
                   error={errors.email}
                   hint={errors.email?'Invalid Email...': ''}

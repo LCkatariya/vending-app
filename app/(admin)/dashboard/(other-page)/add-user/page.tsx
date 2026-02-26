@@ -111,7 +111,7 @@ if(!validateEmail(formData.email)){
                   autoComplete="new-email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter your email"
+                  placeholder="Enter user email"
                   className="dark:bg-dark-900"
                   error={errors.email}
                   hint={errors.email?'Invalid Email...': ''}
@@ -122,7 +122,7 @@ if(!validateEmail(formData.email)){
                 <Label>Password</Label>
                 <Input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Enter user password"
                   name='password'
                   value={formData.password}
                   onChange={handleChange}
